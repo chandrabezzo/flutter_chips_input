@@ -1,3 +1,6 @@
+## [2.1.0] - 8-June-2022
+* Support Flutter 3.10
+
 ## [2.0.1] - 31-August-2022
 * Fix keyboard issue
 
