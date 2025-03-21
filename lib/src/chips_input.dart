@@ -51,6 +51,7 @@ class ChipsInput<T> extends StatefulWidget {
     this.allowChipEditing = false,
     this.focusNode,
     this.initialSuggestions,
+    this.debounceTime = 1500,
   })  : assert(maxChips == null || initialValue.length <= maxChips),
         super(key: key);
 
@@ -75,6 +76,7 @@ class ChipsInput<T> extends StatefulWidget {
   final bool allowChipEditing;
   final FocusNode? focusNode;
   final List<T>? initialSuggestions;
+  final int debounceTime;
 
   // final Color cursorColor;
 
@@ -114,6 +116,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
       widget.maxChips != null && _chips.length >= widget.maxChips!;
 
   FocusNode? _focusNode;
+
   FocusNode get _effectiveFocusNode =>
       widget.focusNode ?? (_focusNode ??= FocusNode());
   late FocusAttachment _nodeAttachment;
@@ -121,6 +124,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   RenderBox? get renderBox => context.findRenderObject() as RenderBox?;
 
   bool get _canRequestFocus => widget.enabled;
+
+  int get _debounceTime => widget.debounceTime;
+
+  Timer? _debounce;
 
   @override
   void initState() {
@@ -150,6 +157,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     _focusNode?.dispose();
     _suggestionsStreamController.close();
     _suggestionsBoxController.close();
+    _debounce?.cancel();
     super.dispose();
   }
 
@@ -294,16 +302,22 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   }
 
   void _onSearchChanged(String value) async {
-    final localId = ++_searchId;
-    final results = await widget.findSuggestions(value);
-    if (_searchId == localId && mounted) {
-      setState(() => _suggestions =
-          results.where((r) => !_chips.contains(r)).toList(growable: false));
-    }
-    _suggestionsStreamController.add(_suggestions ?? []);
-    if (!_suggestionsBoxController.isOpened && !_hasReachedMaxChips) {
-      _suggestionsBoxController.open();
-    }
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(
+        Duration(
+          milliseconds: _debounceTime,
+        ), () async {
+      final localId = ++_searchId;
+      final results = await widget.findSuggestions(value);
+      if (_searchId == localId && mounted) {
+        setState(() => _suggestions =
+            results.where((r) => !_chips.contains(r)).toList(growable: false));
+      }
+      _suggestionsStreamController.add(_suggestions ?? []);
+      if (!_suggestionsBoxController.isOpened && !_hasReachedMaxChips) {
+        _suggestionsBoxController.open();
+      }
+    });
   }
 
   void _closeInputConnectionIfNeeded() {
