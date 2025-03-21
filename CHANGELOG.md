@@ -1,3 +1,6 @@
+## [2.1.1] - 21-March-2025
+* Add debounce feature
+
 ## [2.1.0] - 8-June-2022
 * Support Flutter 3.10
 
