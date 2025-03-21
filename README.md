@@ -1,26 +1,26 @@
-# flutter_chips_input
+# flutter_chips_input_plus
 
 Flutter library for building input fields with InputChips as input options.
 
-[![Pub Version](https://img.shields.io/pub/v/flutter_chips_input?style=for-the-badge)](https://pub.dev/packages/flutter_chips_input)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/danvick/flutter_chips_input/CI?style=for-the-badge)](https://github.com/danvick/flutter_chips_input/actions?query=workflow%3ACI)
-[![Codecov](https://img.shields.io/codecov/c/github/danvick/flutter_chips_input?style=for-the-badge)](https://codecov.io/gh/danvick/flutter_chips_input/)
-[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/danvick/flutter_chips_input?style=for-the-badge)](https://www.codefactor.io/repository/github/danvick/flutter_chips_input)
+[![Pub Version](https://img.shields.io/pub/v/flutter_chips_input_plus?style=for-the-badge)](https://pub.dev/packages/flutter_chips_input_plus)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/danvick/flutter_chips_input_plus/CI?style=for-the-badge)](https://github.com/danvick/flutter_chips_input_plus/actions?query=workflow%3ACI)
+[![Codecov](https://img.shields.io/codecov/c/github/danvick/flutter_chips_input_plus?style=for-the-badge)](https://codecov.io/gh/danvick/flutter_chips_input_plus/)
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/danvick/flutter_chips_input_plus?style=for-the-badge)](https://www.codefactor.io/repository/github/danvick/flutter_chips_input_plus)
 
-[![GitHub](https://img.shields.io/github/license/danvick/flutter_chips_input?style=for-the-badge)](https://github.com/danvick/flutter_chips_input/blob/master/LICENSE)
-[![OSS Lifecycle](https://img.shields.io/osslifecycle/danvick/flutter_chips_input?style=for-the-badge)](#support)
+[![GitHub](https://img.shields.io/github/license/danvick/flutter_chips_input_plus?style=for-the-badge)](https://github.com/danvick/flutter_chips_input_plus/blob/master/LICENSE)
+[![OSS Lifecycle](https://img.shields.io/osslifecycle/danvick/flutter_chips_input_plus?style=for-the-badge)](#support)
 [![Gitter](https://img.shields.io/gitter/room/danvick/flutter_form_builder?style=for-the-badge)](https://gitter.im/flutter_form_builder/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Usage
 
 ### Installation
 
-Follow installation instructions [here](https://pub.dartlang.org/packages/flutter_chips_input#-installing-tab-)
+Follow installation instructions [here](https://pub.dartlang.org/packages/flutter_chips_input_plus#-installing-tab-)
 
 ### Import
 
 ```dart
-import 'package:flutter_chips_input/flutter_chips_input.dart';
+import 'package:flutter_chips_input_plus/flutter_chips_input_plus.dart';
 ```
 
 ### Example
