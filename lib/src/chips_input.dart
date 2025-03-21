@@ -384,11 +384,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   }
 
   @override
-  void performPrivateCommand(String action, Map<String, dynamic> data) {
-    //TODO
-  }
-
-  @override
   void didUpdateWidget(covariant ChipsInput<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     _effectiveFocusNode.canRequestFocus = _canRequestFocus;
@@ -503,4 +498,9 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
 
   @override
   void performSelector(String selectorName) {}
+
+  @override
+  void performPrivateCommand(String action, Map<String, dynamic> data) {
+    // TODO: implement performPrivateCommand
+  }
 }

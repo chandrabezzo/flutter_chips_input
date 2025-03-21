@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chips_input/flutter_chips_input.dart';
+import 'package:flutter_chips_input_plus/flutter_chips_input_plus.dart';
 
 void main() => runApp(const MyApp());
 

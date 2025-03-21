@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_chips_input/flutter_chips_input.dart';
+import 'package:flutter_chips_input_plus/flutter_chips_input_plus.dart';
 
 void main() {
   const allContacts = [
@@ -19,7 +19,8 @@ void main() {
             maxChips: 3,
             findSuggestions: (String query) => query.isNotEmpty
                 ? allContacts
-                    .where((_) => _.toLowerCase().contains(query.toLowerCase()))
+                    .where((contact) =>
+                        contact.toLowerCase().contains(query.toLowerCase()))
                     .toList()
                 : const [],
             onChanged: (contacts) {
