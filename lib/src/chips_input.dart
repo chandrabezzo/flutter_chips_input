@@ -51,6 +51,7 @@ class ChipsInput<T> extends StatefulWidget {
     this.allowChipEditing = false,
     this.focusNode,
     this.initialSuggestions,
+    this.alwaysShowSuggestions = false,
     this.debounceTime = 1500,
   })  : assert(maxChips == null || initialValue.length <= maxChips),
         super(key: key);
@@ -76,6 +77,7 @@ class ChipsInput<T> extends StatefulWidget {
   final bool allowChipEditing;
   final FocusNode? focusNode;
   final List<T>? initialSuggestions;
+  final bool alwaysShowSuggestions;
   final int debounceTime;
 
   // final Color cursorColor;
@@ -165,6 +167,12 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     if (_effectiveFocusNode.hasFocus) {
       _openInputConnection();
       _suggestionsBoxController.open();
+
+      // Show suggestions when focused if alwaysShowSuggestions is enabled
+      if (widget.alwaysShowSuggestions &&
+          (_suggestions == null || _suggestions!.isEmpty)) {
+        _showInitialSuggestions();
+      }
     } else {
       _closeInputConnectionIfNeeded();
       _suggestionsBoxController.close();
@@ -262,8 +270,17 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
         if (enteredText.isNotEmpty) _enteredTexts[data] = enteredText;
       }
       _updateTextInputState(replaceText: true);
-      setState(() => _suggestions = null);
-      _suggestionsStreamController.add(_suggestions);
+
+      // If alwaysShowSuggestions is enabled and text field is still focused, show suggestions again
+      if (widget.alwaysShowSuggestions &&
+          _effectiveFocusNode.hasFocus &&
+          !_hasReachedMaxChips) {
+        _showInitialSuggestions();
+      } else {
+        setState(() => _suggestions = null);
+        _suggestionsStreamController.add(_suggestions);
+      }
+
       if (_hasReachedMaxChips) _suggestionsBoxController.close();
       widget.onChanged(_chips.toList(growable: false));
     } else {
@@ -299,6 +316,20 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
         await Scrollable.of(context).position.ensureVisible(renderBox);
       });
     });
+  }
+
+  void _showInitialSuggestions() {
+    if (widget.initialSuggestions != null) {
+      setState(() {
+        _suggestions = widget.initialSuggestions!
+            .where((r) => !_chips.contains(r))
+            .toList(growable: false);
+      });
+      _suggestionsStreamController.add(_suggestions);
+    } else if (_value.normalCharactersText.isEmpty) {
+      // If no initial suggestions and text is empty, trigger search with empty string
+      _onSearchChanged('');
+    }
   }
 
   void _onSearchChanged(String value) async {

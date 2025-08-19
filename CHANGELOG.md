@@ -1,3 +1,6 @@
+## [2.2.0] - 19-August-2025
+* Add flag always show suggestion
+
 ## [2.1.1] - 21-March-2025
 * Add debounce feature
 
