@@ -68,6 +68,7 @@ class MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: <Widget>[
               ChipsInput(
+                alwaysShowSuggestions: true,
                 key: _chipKey,
                 /*initialValue: [
                   AppProfile('John Doe', 'jdoe@flutter.io',
@@ -88,6 +89,7 @@ class MyHomePageState extends State<MyHomePage> {
                   // enabled: false,
                   // errorText: field.errorText,
                 ),
+                initialSuggestions: mockResults,
                 findSuggestions: (String query) {
                   // print("Query: '$query'");
                   if (query.isNotEmpty) {
