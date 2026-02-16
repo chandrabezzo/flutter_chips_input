@@ -511,6 +511,18 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
               }
             },
           ),
+          ActivateIntent: CallbackAction<ActivateIntent>(
+            onInvoke: (intent) {
+              if (_value.text.isNotEmpty) {
+                final newText = '${_value.text} ';
+                _updateTextInputState(
+                  replaceText: true,
+                  putText: newText,
+                );
+                _onSearchChanged(_value.normalCharactersText);
+              }
+            },
+          ),
         },
         child: SizeChangedLayoutNotifier(
           child: Column(
