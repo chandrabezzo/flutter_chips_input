@@ -495,31 +495,61 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
         });
         return true;
       },
-      child: SizeChangedLayoutNotifier(
-        child: Column(
-          children: <Widget>[
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                requestKeyboard();
-              },
-              child: InputDecorator(
-                decoration: widget.decoration,
-                isFocused: _effectiveFocusNode.hasFocus,
-                isEmpty: _value.text.isEmpty && _chips.isEmpty,
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  spacing: 4.0,
-                  runSpacing: 4.0,
-                  children: chipsChildren,
+      child: FocusableActionDetector(
+        focusNode: _effectiveFocusNode,
+        actions: {
+          DeleteCharacterIntent: CallbackAction(
+            onInvoke: (intent) {
+              if (_value.text.isNotEmpty) {
+                final newText =
+                    _value.text.substring(0, _value.text.length - 1);
+                _updateTextInputState(
+                  replaceText: true,
+                  putText: newText,
+                );
+                _onSearchChanged(_value.normalCharactersText);
+              }
+            },
+          ),
+          ActivateIntent: CallbackAction<ActivateIntent>(
+            onInvoke: (intent) {
+              if (_value.text.isNotEmpty) {
+                final newText = '${_value.text} ';
+                _updateTextInputState(
+                  replaceText: true,
+                  putText: newText,
+                );
+                _onSearchChanged(_value.normalCharactersText);
+              }
+            },
+          ),
+        },
+        child: SizeChangedLayoutNotifier(
+          child: Column(
+            children: <Widget>[
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  requestKeyboard();
+                },
+                child: InputDecorator(
+                  decoration: widget.decoration,
+                  isFocused: _effectiveFocusNode.hasFocus,
+                  isEmpty: _value.text.isEmpty && _chips.isEmpty,
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 4.0,
+                    runSpacing: 4.0,
+                    children: chipsChildren,
+                  ),
                 ),
               ),
-            ),
-            CompositedTransformTarget(
-              link: _layerLink,
-              child: Container(),
-            ),
-          ],
+              CompositedTransformTarget(
+                link: _layerLink,
+                child: Container(),
+              ),
+            ],
+          ),
         ),
       ),
     );
