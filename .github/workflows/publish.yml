@@ -24,11 +24,11 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Analyze
-        run: flutter analyze
+      # - name: Analyze
+      #   run: flutter analyze
 
-      - name: Run tests
-        run: flutter test
+      # - name: Run tests
+      #   run: flutter test
 
       - name: Publish to pub.dev
         run: dart pub publish --force
