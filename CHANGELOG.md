@@ -1,3 +1,7 @@
+## [2.2.1] - 20-Feb-2026
+* [Web] fix keyboard cannot enter space
+* [Android] fix cannot backspace search character
+
 ## [2.2.0] - 19-August-2025
 * Add flag always show suggestion
 
